@@ -6,8 +6,8 @@
 #SBATCH -t 4-0
 #SBATCH --mail-type=end
 #SBATCH --mail-user joonyong.lee@pnnl.gov
-#SBATCH -o DeepNovo_pnnl3/logs/test_kaiko.out
-#SBATCH -e DeepNovo_pnnl3/logs/test_kaiko.err
+#SBATCH -o kaiko/logs/test_kaiko.out
+#SBATCH -e kaiko/logs/test_kaiko.err
 #SBATCH --job-name="test_kaiko"
 
 module purge
@@ -39,4 +39,4 @@ mgf_dir="/scratch/leej324/${SLURM_JOBID}/test_sets/"
 # cp -Rp /pic/scratch/kaiko/blinded_organisms $mgf_dir
 # mgf_dir="/scratch/leej324/${SLURM_JOBID}/blinded_organisms/"
 
-python /people/leej324/DeepNovo_pnnl3/deepnovo_main.py --mgf_dir $mgf_dir --train_dir /pic/scratch/kaiko/pnnl3.model_235_v4_cp_0001 --multi_decode --beam_search --beam_size 5
+python /people/leej324/kaiko/kaiko_main.py --mgf_dir $mgf_dir --train_dir /pic/scratch/kaiko/pnnl3.model_235_v4_cp_0001 --multi_decode --beam_search --beam_size 5
