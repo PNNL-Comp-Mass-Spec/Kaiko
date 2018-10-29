@@ -2,7 +2,7 @@
 Kaiko is a deep learning-based *de novo* peptide sequencing tool. The codebase is based on [DeepNovo](https://github.com/nh2tran/DeepNovo).
 
 ## Installation and Requirements
-Kaiko is a deep learning program, and as such requires significant computational resources to train. Computational infrastructures for GPU-based deep learning are often very different from each other. In our [publication] (https://www.biorxiv.org/content/early/2018/09/27/428334) describing Kaiko, we use a super computer that is able to remotely execute python scripts and Jupyter notebooks on the GPU cluster. 
+Kaiko is a deep learning program, and as such requires significant computational resources to train. Computational infrastructures for GPU-based deep learning are often very different from each other. In our [publication](https://www.biorxiv.org/content/early/2018/09/27/428334) describing Kaiko, we use a super computer that is able to remotely execute python scripts and Jupyter notebooks on the GPU cluster. 
 
 To install Kaiko for training purposes, clone this GitHub repository and ensure that you have the software packages and versions mentioned below. 
 Python: 2.7
