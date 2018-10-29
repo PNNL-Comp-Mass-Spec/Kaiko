@@ -1,6 +1,17 @@
 # Kaiko
 Kaiko is a deep learning-based *de novo* peptide sequencing tool. The codebase is based on [DeepNovo](https://github.com/nh2tran/DeepNovo).
 
+## Installation and Requirements
+Kaiko is a deep learning program, and as such requires significant computational resources to train. Computational infrastructures for GPU-based deep learning are often very different from each other. In our [publication] (https://www.biorxiv.org/content/early/2018/09/27/428334) describing Kaiko, we use a super computer that is able to remotely execute python scripts and Jupyter notebooks on the GPU cluster. 
+
+To install Kaiko for training purposes, clone this GitHub repository and ensure that you have the software packages and versions mentioned below. 
+Python: 2.7
+TensorFlow: 1.2
+
+Running the pre-trained version of Kaiko to annotate MS/MS spectra does not require a GPU based computer. Install Kaiko by cloning this GitHub repository and ensure that you have the software packages and versions mentioned below.
+Python: 2.7
+TensorFlow: 1.2
+
 ## Data format
 Kaiko uses .mgf file format as in the DeepNovo codebase. DeepNovo allows a single mgf file for a training, whereas Kaiko can use the multiple mgf files for a training run. It allows Kaiko scalable to train more than 1 million spectra. Please refer to [tool/mgf_for_kaiko.ipynb](tool/mgf_for_kaiko.ipynb) to convert mzML files to mgf files compatible with Kaiko. Unlike the typical mgf format, the known sequence for each spectrum should be placed in mgf files as like `SEQ=[Peptide Sequence]`. It also allows the pickle format. For this, see [tool/mgf2binary/mgf2pickle.ipynb](tool/mgf2binary/mgf2pickle.ipynb).
 
