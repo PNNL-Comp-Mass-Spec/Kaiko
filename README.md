@@ -16,6 +16,11 @@ Kaiko can be run in two modes. The first mode is called training where the goal 
 
 The second mode of use for Kaiko is testing where the goal is to evaluate a model on unseen data. This is the mode that most end-users will access to annotate their spectra. This mode is much faster. Although we typically run it on our GPU cluster, it does not require such resources.
 
+### Demo dataset
+[Demo datasets for Kaiko](https://figshare.com/articles/mgf_files_for_kaiko_demo_300k/7265681) includes about 300K peptide-spectrum pairs in 18 mgf files for 5 different species. Download/unzip it and set `--mgf_dir` up to the corresponding directory. Also, set the `--lastindex` as 17 and edit the following line in src/deepnovo_debug.py as below.
+```
+valid_index = [16, 17]
+```
 
 ### For training
 ```
