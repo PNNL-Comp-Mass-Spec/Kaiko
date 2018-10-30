@@ -64,3 +64,5 @@ python kaiko_main.py --mgf_dir $mgf_dir --train_dir $train_dir --sigopt --api_to
 | --experiment_id | the experiment id for your experiment |
 | --epoch_stop | a number of epochs for each trial |
 
+## License
+[BSD License](LICENSE.txt).
