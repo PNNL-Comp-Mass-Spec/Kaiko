@@ -5,5 +5,6 @@ RUN pip install pyteomics
 RUN pip install numba
 RUN pip install sigopt
 
-COPY . /app
+COPY ./*sh /app/
+COPY ./src /app/src
 WORKDIR /app

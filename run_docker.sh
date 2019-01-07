@@ -1,2 +1,2 @@
 docker rm kaiko
-docker run -it --name kaiko kaiko bash
+docker run -it --name kaiko -v $(pwd)/model:/app/model kaiko bash
