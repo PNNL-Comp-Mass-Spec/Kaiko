@@ -152,7 +152,7 @@ def read_spectra(file_handle, data_format, spectra_locations):
       # header SEQ
       line = file_handle.readline()
       raw_sequence = re.split('=|\n|\r', line)[1]
-      
+
       ###########################
       ## for unknown sequences ##
       if raw_sequence == 'UNKNOWN':
@@ -1010,7 +1010,7 @@ def read_spectra_from_multiple_pickles(all_spectra_in_memory, all_sequence_in_me
                                     candidate_intensity_list_backward,
                                     peptide_ids_forward,
                                     peptide_ids_backward])
-  
+
   print("  total peptide read %d" % counter)
   print("  total peptide skipped %d" % counter_skipped)
   print("  total peptide skipped by mod %d" % counter_skipped_mod)
@@ -1064,10 +1064,10 @@ def read_random_stack_for_multiple_files(data_format, file_index, spectra_locati
 
 def read_random_stack_for_multiple_pickles(all_spectra, all_sequence, num_spectra, stack_size):
   """TODO(nh2tran): docstring."""
-  
+
   print("read_random_stack_for_multiple_pickles()")
   random_idx = random.sample(xrange(num_spectra[-1]), min(stack_size, num_spectra[-1]))
-  
+
   random_locations = []
   f_idx = np.array(num_spectra)
   for i in random_idx:
@@ -2919,7 +2919,8 @@ def decode(input_file=deepnovo_config.decode_test_file):
     if deepnovo_config.FLAGS.beam_search:
 
       print("Load knapsack_matrix from default: knapsack.npy")
-      knapsack_matrix = np.load("/people/leej324/DeepNovo/DeepNovo_data_01152018/knapsack.npy")
+      #knapsack_matrix = np.load("/people/leej324/DeepNovo/DeepNovo_data_01152018/knapsack.npy")
+      knapsack_matrix = np.load(deepnovo_config.knapsack_file)
 
       # READ & DECODE in stacks
       print("READ & DECODE in stacks")
@@ -3050,7 +3051,7 @@ def multi_decode(input_dir=deepnovo_config.input_mgf_dir):
 
     if deepnovo_config.FLAGS.beam_search:
       print("Load knapsack_matrix from default: knapsack.npy")
-      knapsack_matrix = np.load("/people/leej324/DeepNovo/DeepNovo_data_01152018/knapsack.npy")
+      knapsack_matrix = np.load(deepnovo_config.knapsack_file)
 
     ### collect data (mgf) files to test
     print('mgf file path:', input_dir + "/*.mgf")
@@ -3087,7 +3088,7 @@ def multi_decode(input_dir=deepnovo_config.input_mgf_dir):
       common_name = os.path.basename(input_file).rsplit('.mgf')[0]
       print('[{0:3d}/{1:3d}] {2}'.format(i+1,num_mgf_files,common_name))
       print('{0:3d}\t{1}\t'.format(i,common_name))
-      
+
       # FIND SPECTRA LOCATIONS
       spectra_file_location = inspect_file_location(deepnovo_config.data_format,
                                                     input_file)
@@ -3118,7 +3119,7 @@ def multi_decode(input_dir=deepnovo_config.input_mgf_dir):
 
         # print to output file
         decode_output_file = "{0}/mgf_test/{1}_out.txt".format(deepnovo_config.FLAGS.train_dir, common_name)
-        
+
         counter = 0
         counter_skipped = 0
         counter_skipped_mod = 0
@@ -3563,7 +3564,7 @@ def train():
         deepnovo_config.data_format,
         spectra_file_location_valid,
         deepnovo_config.valid_stack_size)
-  
+
   valid_set_len = set_len[0]
   valid_bucket_len = [len(x) for x in valid_set]
   valid_bucket_pos_id = np.nonzero(valid_bucket_len)[0]
@@ -3702,16 +3703,16 @@ JOON
 def sigopt():
   conn = Connection(client_token=deepnovo_config.FLAGS.api_token)
   hostname = socket.gethostname()
-  
+
   # for hyper-param opt
   train_dir = deepnovo_config.FLAGS.train_dir
 
   mgf_files = read_mgf_list_file(deepnovo_config.input_mgf_dir + 'mgf_list.log')
   mgf_dir = deepnovo_config.input_mgf_dir
-  
+
   input_files_train = [mgf_dir+mgf_files[i]+'.mgf' for i in deepnovo_config.input_files_train]
   input_files_valid = [mgf_dir+mgf_files[i]+'.mgf' for i in deepnovo_config.input_files_valid]
-  
+
   print("train files\n", input_files_train)
   print("valid files\n", input_files_valid)
 
@@ -3780,7 +3781,7 @@ def multi_train_for_sigopt(hyperparams,
   print("keep_conv ", deepnovo_config.keep_conv)
   print("keep_dense ", deepnovo_config.keep_dense)
   print("learning_rate ", deepnovo_config.learning_rate)
-  
+
   print("epoch_stop ", deepnovo_config.epoch_stop)
   print('============= new hyperparams =============')
 
@@ -3792,7 +3793,7 @@ def multi_train_for_sigopt(hyperparams,
     file_index_valid,
     spectra_file_locations_valid,
     deepnovo_config.valid_stack_size)
-  
+
   valid_set_len = set_len[0]
   valid_bucket_len = [len(x) for x in valid_set]
   valid_bucket_pos_id = np.nonzero(valid_bucket_len)[0]
@@ -3802,7 +3803,7 @@ def multi_train_for_sigopt(hyperparams,
   with tf.Session() as sess:
     print("Create model for training")
     model = create_model(sess, training_mode=True)
-  
+
     # Open log_file
     log_file = deepnovo_config.FLAGS.train_dir + "/log_file_caption_2dir.tab"
 
@@ -3812,7 +3813,7 @@ def multi_train_for_sigopt(hyperparams,
       except OSError as exc:
           if exc.errno != errno.EEXIST:
               raise
-              
+
     print("Open log_file: ", log_file)
     log_file_handle = open(log_file, 'a')
     print("global step\tepoch\tstep-time\t"  # 0 1 2
@@ -3890,7 +3891,7 @@ def multi_train():
   print("multi_train()")
   mgf_files = read_mgf_list_file(deepnovo_config.input_mgf_dir + 'mgf_list.log')
   mgf_dir = deepnovo_config.input_mgf_dir
-  
+
   input_files_train = [mgf_dir+mgf_files[i]+'.mgf' for i in deepnovo_config.input_files_train]
   input_files_valid = [mgf_dir+mgf_files[i]+'.mgf' for i in deepnovo_config.input_files_valid]
   # input_files_test = [mgf_dir+mgf_files[i]+'.mgf' for i in deepnovo_config.input_files_test]
@@ -3914,7 +3915,7 @@ def multi_train():
     file_index_valid,
     spectra_file_locations_valid,
     deepnovo_config.valid_stack_size)
-  
+
   valid_set_len = set_len[0]
   valid_bucket_len = [len(x) for x in valid_set]
   valid_bucket_pos_id = np.nonzero(valid_bucket_len)[0]
@@ -3923,7 +3924,7 @@ def multi_train():
   with tf.Session() as sess:
     print("Create model for training")
     model = create_model(sess, training_mode=True)
-    
+
     # Open log_file
     log_file = deepnovo_config.FLAGS.train_dir + "/log_file_caption_2dir.tab"
 
@@ -3933,7 +3934,7 @@ def multi_train():
       except OSError as exc: # Guard against race condition
           if exc.errno != errno.EEXIST:
               raise
-              
+
     print("Open log_file: ", log_file)
     log_file_handle = open(log_file, 'a')
     print("global step\tepoch\tstep-time\t"  # 0 1 2
@@ -4263,7 +4264,7 @@ def train_cycle_from_multiple_files(model,
   print("valid_time = {0:.2f}".format(valid_time))
   print("   valid_test_time = {0:.2f}".format(valid_test_time))
   print("   valid_save_time = {0:.2f}".format(valid_save_time))
-  
+
 
 def num_spectra(spectra_from_pickles):
   n_spectra = []
@@ -4277,10 +4278,10 @@ def multi_train_pickles():
   print("multi_train_pickles()")
   mgf_files = read_mgf_list_file(deepnovo_config.input_mgf_dir + 'mgf_list.log')
   pkl_dir = deepnovo_config.input_mgf_dir
-  
+
   input_files_train = [pkl_dir+mgf_files[i]+'.p' for i in deepnovo_config.input_files_train]
   input_files_valid = [pkl_dir+mgf_files[i]+'.p' for i in deepnovo_config.input_files_valid]
-  
+
   #print("train files\n", input_files_train)
   #print("valid files\n", input_files_valid)
 
@@ -4311,7 +4312,7 @@ def multi_train_pickles():
     all_sequence_valid,
     num_spectra(all_spectra_valid),
     deepnovo_config.valid_stack_size)
-  
+
   valid_set_len = set_len[0]
   valid_bucket_len = [len(x) for x in valid_set]
   valid_bucket_pos_id = np.nonzero(valid_bucket_len)[0]
@@ -4320,7 +4321,7 @@ def multi_train_pickles():
   with tf.Session() as sess:
     print("Create model for training")
     model = create_model(sess, training_mode=True)
-    
+
     # Open log_file
     log_file = deepnovo_config.FLAGS.train_dir + "/log_file_caption_2dir.tab"
 
@@ -4330,7 +4331,7 @@ def multi_train_pickles():
       except OSError as exc: # Guard against race condition
           if exc.errno != errno.EEXIST:
               raise
-              
+
     print("Open log_file: ", log_file)
     log_file_handle = open(log_file, 'a')
     print("global step\tepoch\tstep-time\t"  # 0 1 2
