@@ -68,6 +68,25 @@ python kaiko_main.py --mgf_dir $mgf_dir --train_dir $train_dir --multi_decode --
 | --beam_size | a size for the beam search |
 | --topk | use if you want to save the top k in beam search for each spectrum |
 
+### Inference on your own data
+
+To run inference on your own data, put mgf files in the $mgf_dir. For the SEQ field, enter UNKNOWN (e.g. SEQ=UNKNOWN). This will produce inference output in the $decode_path (default is ./decode_path) where there is
+one corresponding output file per input file in $mgf_dir. For example, if there is an input file called test_query.mgf in the mgf_dir, then the output file will be test_query_out.txt.
+
+
+This is an example command:
+
+```
+python kaiko_main.py --mgf_dir $mgf_dir --train_dir $train_dir --multi_decode --decode_path $decode_path --beam_search --beam_size 5
+```
+
+The output inference txt file will be a tab separated file with headers. The columns that matter are:
+
+1. scan - represents the value you put into the SCANS= field in the MGF input file
+2. output_score - output de novo score
+3. output_seq - de novo sequence for the MS/MS spectrum
+
+
 ### For hyper-parameter optimization
 We use the [SigOpt](https://sigopt.com/) to optimize the hyperparameters. Note that to train Kaiko for more than 1M spectra, it takes so much time. Also, note that optimal hyper-parameters for a small subset are likely not to fit for a large training set. To use this you need to sign in sigopt and set up an experiment. For more details, please refer to (this APIs)[https://app.sigopt.com/docs/overview/python].
 ```
