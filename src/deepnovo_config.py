@@ -54,7 +54,7 @@ tf.app.flags.DEFINE_boolean("decode",
                             False,
                             "Set to True for decoding.")
 """
-JOON
+Kaiko Additions
 """
 tf.app.flags.DEFINE_boolean("multi_decode",
                             False,
@@ -104,7 +104,7 @@ tf.app.flags.DEFINE_boolean("float64bits", # flag_name
                            False, # default_value
                            "Set to True for using float64") # docstring
 """
-JOON
+Kaiko Additions
 """
 
 tf.app.flags.DEFINE_boolean("beam_search",
