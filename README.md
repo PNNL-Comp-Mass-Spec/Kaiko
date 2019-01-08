@@ -103,7 +103,9 @@ python kaiko_main.py --mgf_dir $mgf_dir --train_dir $train_dir --sigopt --api_to
 
 ### For Testing with Docker
 
-We have additionally wrapped kaiko to run within docker. Docker currently only supports inference and not training. To build the docker:
+We have additionally wrapped Kaiko to run within docker. Docker currently only supports inference and not training. First please download the pre-trained model.
+
+To build the docker:
 
 ```
 sh ./build_docker.sh
