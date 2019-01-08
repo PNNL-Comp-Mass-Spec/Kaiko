@@ -2,7 +2,7 @@
 Kaiko is a deep learning-based *de novo* peptide sequencing tool. The codebase is based on [DeepNovo](https://github.com/nh2tran/DeepNovo).
 
 ## Installation and Requirements
-Kaiko is a deep learning program, and as such requires significant computational resources to train. Computational infrastructures for GPU-based deep learning are often very different from each other. In our [publication](https://www.biorxiv.org/content/early/2018/09/27/428334) describing Kaiko, we use a super computer that is able to remotely execute python scripts and Jupyter notebooks on the GPU cluster. 
+Kaiko is a deep learning program, and as such requires significant computational resources to train. Computational infrastructures for GPU-based deep learning are often very different from each other. In our [publication](https://www.biorxiv.org/content/early/2018/09/27/428334) describing Kaiko, we use a super computer that is able to remotely execute python scripts and Jupyter notebooks on the GPU cluster.
 
 To install Kaiko for training purposes, clone this GitHub repository and ensure that you have the software packages and versions (Python: 2.7, TensorFlow: 1.2).
 
@@ -17,9 +17,27 @@ Kaiko can be run in two modes. The first mode is called training where the goal 
 The second mode of use for Kaiko is testing where the goal is to evaluate a model on unseen data. This is the mode that most end-users will access to annotate their spectra. This mode is much faster. Although we typically run it on our GPU cluster, it does not require such resources.
 
 ### Demo dataset
-[Demo datasets for Kaiko](https://figshare.com/articles/mgf_files_for_kaiko_demo_300k/7265681) includes about 300K peptide-spectrum pairs in 18 mgf files for 5 different species. Download/unzip it and set `--mgf_dir` up to the corresponding directory. Also, set the `--lastindex` as 17 and edit the following line in src/deepnovo_debug.py as below.
+
+We have included in the repository a single test_query.mgf file which includes a single MS/MS spectrum for testing. For a more comprehensive testing, there are 300K peptide-spectrum pairs in 18 mgf files for 5 different species. To download this extended set, execute the following script:
+
+```
+cd mgf_input
+sh ./get_test_mgf.sh
+```
+
+Also, set the `--lastindex` as 17 and edit the following line in src/deepnovo_debug.py as below.
+
 ```
 valid_index = [16, 17]
+```
+
+### Pre-trained Model
+
+To acquire the pre-trained model and knapsack data, execute the script:
+
+```
+cd model
+sh ./get_data.sh
 ```
 
 ### For training
@@ -63,6 +81,26 @@ python kaiko_main.py --mgf_dir $mgf_dir --train_dir $train_dir --sigopt --api_to
 | --api_token | the api token for your sigopt account |
 | --experiment_id | the experiment id for your experiment |
 | --epoch_stop | a number of epochs for each trial |
+
+### For Testing with Docker
+
+We have additionally wrapped kaiko to run within docker. Docker currently only supports inference and not training. To build the docker:
+
+```
+sh ./build_docker.sh
+```
+
+To run the docker
+
+```
+sh ./run_docker.sh
+```
+
+This will drop you into a command line within the docker image. We mount in mgf_input, model, and the source code. To perform inference on the input data (that is in mgf_input), execute
+
+```
+sh ./test_docker.sh
+```
 
 ## License
 [BSD License](LICENSE.txt).
