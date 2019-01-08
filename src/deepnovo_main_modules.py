@@ -3118,7 +3118,7 @@ def multi_decode(input_dir=deepnovo_config.input_mgf_dir):
         total_peptide_decode = 0.0
 
         # print to output file
-        decode_output_file = "{0}/mgf_test/{1}_out.txt".format(deepnovo_config.FLAGS.train_dir, common_name)
+        decode_output_file = "{0}/{1}_out.txt".format(deepnovo_config.FLAGS.decode_dir, common_name)
 
         counter = 0
         counter_skipped = 0

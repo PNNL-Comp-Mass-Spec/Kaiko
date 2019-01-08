@@ -56,12 +56,23 @@ tf.app.flags.DEFINE_boolean("decode",
 """
 Kaiko Additions
 """
+
+tf.app.flags.DEFINE_string("knapsack_file",
+                           "model/knapsack.npy",
+                           "Knapsack input directory.")
+
 tf.app.flags.DEFINE_boolean("multi_decode",
                             False,
                             "Set to True for decoding multiple files.")
+
 tf.app.flags.DEFINE_boolean("topk",
                             False,
                             "Set to True for decoding multiple files with topk.")
+
+tf.app.flags.DEFINE_string("decode_dir",
+                           "decode_output",
+                           "Output decode directory.")
+
 
 """
 for this
@@ -521,7 +532,7 @@ fixed_mod_list = ['C']
 var_mod_list = ['N', 'Q', 'M']
 precursor_mass_tolerance = 0.01 # Da
 precursor_mass_ppm = 10.0/1000000 # ppm (20 better) # instead of absolute 0.01 Da
-knapsack_file = "model/knapsack.npy"
+knapsack_file = FLAGS.knapsack_file
 # training/testing/decoding files
 input_file_train = "/people/leej324/DeepNovo/DeepNovo_data_01152018/data.training/yeast.low.coon_2013/peaks.db.mgf.train.dup"
 input_file_valid = "/people/leej324/DeepNovo/DeepNovo_data_01152018/data.training/yeast.low.coon_2013/peaks.db.mgf.valid.dup"
