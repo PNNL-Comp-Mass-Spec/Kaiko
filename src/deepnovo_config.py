@@ -54,14 +54,25 @@ tf.app.flags.DEFINE_boolean("decode",
                             False,
                             "Set to True for decoding.")
 """
-JOON
+Kaiko Additions
 """
+
+tf.app.flags.DEFINE_string("knapsack_file",
+                           "model/knapsack.npy",
+                           "Knapsack input directory.")
+
 tf.app.flags.DEFINE_boolean("multi_decode",
                             False,
                             "Set to True for decoding multiple files.")
+
 tf.app.flags.DEFINE_boolean("topk",
                             False,
                             "Set to True for decoding multiple files with topk.")
+
+tf.app.flags.DEFINE_string("decode_dir",
+                           "decode_output",
+                           "Output decode directory.")
+
 
 """
 for this
@@ -104,7 +115,7 @@ tf.app.flags.DEFINE_boolean("float64bits", # flag_name
                            False, # default_value
                            "Set to True for using float64") # docstring
 """
-JOON
+Kaiko Additions
 """
 
 tf.app.flags.DEFINE_boolean("beam_search",
@@ -260,7 +271,7 @@ mass_AA = {'_PAD': 0.0,
            'Y': 163.06333, # 18
            'V': 99.06841, # 19
           }
-          
+
 # mass_AA = {'_PAD': 0.0,
 #            '_GO': mass_N_terminus-mass_H,
 #            '_EOS': mass_C_terminus+mass_H,
@@ -521,7 +532,7 @@ fixed_mod_list = ['C']
 var_mod_list = ['N', 'Q', 'M']
 precursor_mass_tolerance = 0.01 # Da
 precursor_mass_ppm = 10.0/1000000 # ppm (20 better) # instead of absolute 0.01 Da
-knapsack_file = "/people/leej324/DeepNovo/DeepNovo_data_01152018/knapsack.npy"
+knapsack_file = FLAGS.knapsack_file
 # training/testing/decoding files
 input_file_train = "/people/leej324/DeepNovo/DeepNovo_data_01152018/data.training/yeast.low.coon_2013/peaks.db.mgf.train.dup"
 input_file_valid = "/people/leej324/DeepNovo/DeepNovo_data_01152018/data.training/yeast.low.coon_2013/peaks.db.mgf.valid.dup"

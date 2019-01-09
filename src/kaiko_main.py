@@ -4,6 +4,7 @@ from __future__ import print_function
 
 import tensorflow as tf
 import socket
+import sys
 
 import deepnovo_config
 import deepnovo_model
