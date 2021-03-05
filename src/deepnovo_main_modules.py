@@ -53,7 +53,6 @@ import deepnovo_model
 from deepnovo_debug import process_spectrum, get_candidate_intensity
 
 import socket
-from sigopt import Connection
 
 import cPickle
 
@@ -273,12 +272,20 @@ def read_spectra(file_handle, data_format, spectra_locations):
     # Average peptide length
     avg_peptide_len += peptide_len
 
+    # skip no spectrum data
+    if len(spectrum_intensity) == 0:
+      counter_skipped += 1
+      continue
+
     # PRE-PROCESS SPECTRUM
-    (spectrum_holder,
-     spectrum_original_forward,
-     spectrum_original_backward) = process_spectrum(spectrum_mz,
-                                                    spectrum_intensity,
-                                                    peptide_mass)
+    try:
+      (spectrum_holder,
+       spectrum_original_forward,
+       spectrum_original_backward) = process_spectrum(spectrum_mz,
+                                                      spectrum_intensity,
+                                                      peptide_mass)
+    except Exception as e:
+      raise e
 
     ################################################################
     # (spectrum_holder_debug,
@@ -3701,6 +3708,8 @@ def test_true_feeding():
 JOON
 """
 def sigopt():
+  from sigopt import Connection
+
   conn = Connection(client_token=deepnovo_config.FLAGS.api_token)
   hostname = socket.gethostname()
 

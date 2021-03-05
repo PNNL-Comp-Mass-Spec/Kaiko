@@ -1,8 +1,9 @@
-FROM tensorflow/tensorflow:1.2.0
+FROM tensorflow/tensorflow:1.2.1
 
-RUN pip install biopython
+RUN pip install llvmlite==0.22
+RUN pip install biopython==1.69
+RUN pip install numba==0.37
 RUN pip install pyteomics
-RUN pip install numba
 RUN pip install sigopt
 
 COPY ./*sh /app/
